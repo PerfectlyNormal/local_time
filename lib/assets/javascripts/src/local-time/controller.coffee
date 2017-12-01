@@ -51,6 +51,8 @@ class LocalTime.Controller
         relative(time).toWeekdayString()
       when "weekday-or-date"
         relative(time).toWeekdayString() or relative(time).toDateString()
+      when "relative-days"
+        relative(time).toDayDiffString()
 
   markAsLocalized = (element) ->
     element.setAttribute("data-localized", "")

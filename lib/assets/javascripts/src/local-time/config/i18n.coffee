@@ -48,8 +48,12 @@ LocalTime.config.i18n =
         "Dec"
       ]
       yesterday: "yesterday"
+      beforeyesterday: "day before yesterday",
+      previous: "last {day}",
       today: "today"
       tomorrow: "tomorrow"
+      aftertomorrow: "day after tomorrow",
+      next: "next {day}",
       on: "on {date}"
       formats:
         default: "%b %e, %Y"

@@ -70,3 +70,27 @@ class LocalTime.RelativeTime
 
   toTimeString: ->
     strftime(@date, getI18nValue("time.formats.default"))
+
+  toDayDiffString: ->
+    daysPassed = @calendarDate.daysPassed()
+    switch daysPassed
+      when 0
+        translate("date.today")
+      when 1
+        translate("date.yesterday")
+      when 2
+        translate("date.beforeyesterday")
+      when 3, 4, 5, 6, 7
+        translate("date.previous", {day: strftime(@date, "%A")})
+      when -1
+        translate("date.tomorrow")
+      when -2
+        translate("date.aftertomorrow")
+      when -3, -4, -5, -6, -7
+        translate("date.next", {day: strftime(@date, "%A")})
+      else
+        reldays = daysPassed * -1
+        if reldays > 0
+          "+" + reldays
+        else
+          reldays
