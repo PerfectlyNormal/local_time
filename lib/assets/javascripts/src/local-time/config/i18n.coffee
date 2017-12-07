@@ -50,6 +50,7 @@ LocalTime.config.i18n =
       yesterday: "yesterday"
       beforeyesterday: "day before yesterday",
       previous: "last {day}",
+      daysago: "{days} days ago",
       today: "today"
       tomorrow: "tomorrow"
       aftertomorrow: "day after tomorrow",

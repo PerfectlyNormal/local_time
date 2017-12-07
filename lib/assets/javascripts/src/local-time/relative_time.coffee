@@ -91,6 +91,6 @@ class LocalTime.RelativeTime
       else
         reldays = daysPassed * -1
         if reldays > 0
-          "+" + reldays
+          strftime(@date, "%Y:%W:%w")
         else
-          reldays
+          translate("date.daysago", {days: Math.abs(reldays)})

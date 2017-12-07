@@ -9,7 +9,7 @@ LocalTime.strftime = strftime = (time, formatString) ->
   minute = time.getMinutes()
   second = time.getSeconds()
 
-  formatString.replace /%([%aAbBcdeHIlmMpPSwyYZ])/g, ([match, modifier]) ->
+  formatString.replace /%([%aAbBcdDeHIlmMpPSwWyYZ])/g, ([match, modifier]) ->
     switch modifier
       when "%" then "%"
       when "a" then getI18nValue("date.abbrDayNames")[day]
@@ -28,12 +28,27 @@ LocalTime.strftime = strftime = (time, formatString) ->
       when "P" then translate("time.#{(if hour > 11 then "pm" else "am")}")
       when "S" then pad(second)
       when "w" then day
+      when "W" then getWeekNumber(time)
       when "y" then pad(year % 100)
       when "Y" then year
       when "Z" then parseTimeZone(time)
 
 pad = (num) ->
   ("0#{num}").slice(-2)
+
+getWeekNumber = (time) ->
+  # Copy date so don't modify original
+  d = new Date(Date.UTC(time.getFullYear(), time.getMonth(), time.getDate()))
+
+  # Set to nearest Thursday: current date + 4 - current day number
+  # Make Sunday's day number 7
+  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7))
+
+  # Get first day of year
+  yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1))
+
+  # Calculate full weeks to nearest Thursday
+  return Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7)
 
 parseTimeZone = (time) ->
   string = time.toString()
