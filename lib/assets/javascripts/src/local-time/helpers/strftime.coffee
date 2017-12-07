@@ -1,7 +1,7 @@
 {getI18nValue, translate} = LocalTime
 
 LocalTime.strftime = strftime = (time, formatString) ->
-  day    = time.getDay()
+  day    = (time.getDay() + 6) % 7 + 1
   date   = time.getDate()
   month  = time.getMonth()
   year   = time.getFullYear()
